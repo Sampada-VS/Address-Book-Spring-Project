@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.blz.addressbookapp.dto.AddressBookDTO;
+import com.blz.addressbookapp.exceptions.AddressBookException;
 import com.blz.addressbookapp.model.AddressBookData;
 
 @Service
@@ -20,7 +21,10 @@ public class AddressBookService implements IAddressBookService {
 
 	@Override
 	public AddressBookData getAddressBookDataById(int bookId) {
-		return bookDataList.get(bookId - 1);
+		return bookDataList.stream()
+				.filter(bookData -> bookData.getAddressBookId() == bookId)
+				.findFirst()
+				.orElseThrow(() -> new AddressBookException("Addressbook entry Not found"));
 	}
 
 	@Override
