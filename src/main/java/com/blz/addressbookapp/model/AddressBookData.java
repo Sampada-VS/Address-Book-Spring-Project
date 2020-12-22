@@ -37,7 +37,7 @@ public class AddressBookData {
 		return phoneNumber;
 	}
 
-	public void getPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
