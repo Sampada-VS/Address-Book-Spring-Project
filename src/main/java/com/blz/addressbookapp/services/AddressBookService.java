@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.blz.addressbookapp.dto.AddressBookDTO;
 import com.blz.addressbookapp.exceptions.AddressBookException;
 import com.blz.addressbookapp.model.AddressBookData;
 
 @Service
+@Slf4j
 public class AddressBookService implements IAddressBookService {
 
 	List<AddressBookData> bookDataList = new ArrayList<>();
@@ -32,6 +35,7 @@ public class AddressBookService implements IAddressBookService {
 		AddressBookData bookData = null;
 		bookData = new AddressBookData(bookDataList.size() + 1, addressBookDTO);
 		bookDataList.add(bookData);
+		log.debug("Addressbook Data : "+bookData.toString());
 		return bookData;
 	}
 
