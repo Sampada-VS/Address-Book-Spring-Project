@@ -2,11 +2,17 @@ package com.blz.addressbookapp.model;
 
 import com.blz.addressbookapp.dto.AddressBookDTO;
 
-public class AddressBookData {
+import lombok.Data;
+
+public @Data class AddressBookData {
 
 	private int addressBookId;
 	private String name;
 	private String phoneNumber;
+	private String address;
+	private String city;
+	private String state;
+	private String zip;
 
 	public AddressBookData() {
 	}
@@ -15,30 +21,10 @@ public class AddressBookData {
 		this.addressBookId = bookId;
 		this.name = addressBookDTO.name;
 		this.phoneNumber = addressBookDTO.phoneNumber;
-	}
-
-	public int getAddressBookId() {
-		return addressBookId;
-	}
-
-	public void setAddressBookId(int addressBookId) {
-		this.addressBookId = addressBookId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		this.address=addressBookDTO.address;
+		this.city=addressBookDTO.city;
+		this.state=addressBookDTO.state;
+		this.zip=addressBookDTO.zip;
 	}
 
 }

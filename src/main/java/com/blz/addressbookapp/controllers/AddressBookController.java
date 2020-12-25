@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.blz.addressbookapp.dto.AddressBookDTO;
 import com.blz.addressbookapp.dto.ResponseDTO;
 import com.blz.addressbookapp.model.AddressBookData;
@@ -23,6 +25,7 @@ import com.blz.addressbookapp.services.IAddressBookService;
 
 @RestController
 @RequestMapping("/addressbookservice")
+@Slf4j
 public class AddressBookController {
 	
 	@Autowired
@@ -46,6 +49,7 @@ public class AddressBookController {
 
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDTO> addAddressBookData(@Valid @RequestBody AddressBookDTO addressBookDTO) {
+		log.debug("Addressbook DTO : "+addressBookDTO.toString());
 		AddressBookData bookData = null;
 		bookData = addressBookService.addAddressBookData(addressBookDTO);
 		ResponseDTO respDTO = new ResponseDTO("Created Address Book Data Successfully ", bookData);
