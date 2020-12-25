@@ -24,10 +24,15 @@ public @Data class AddressBookData {
 	private String state;
 	private String zip;
 
-	public AddressBookData() {
+	public AddressBookData(){
+
+	}
+	
+	public AddressBookData(AddressBookDTO addressBookDTO) {
+		this.updateAddressBookData(addressBookDTO);
 	}
 
-	public AddressBookData(AddressBookDTO addressBookDTO) {
+	public void updateAddressBookData(AddressBookDTO addressBookDTO) {
 		this.name = addressBookDTO.name;
 		this.phoneNumber = addressBookDTO.phoneNumber;
 		this.address=addressBookDTO.address;

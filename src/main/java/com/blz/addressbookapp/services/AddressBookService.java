@@ -1,6 +1,5 @@
 package com.blz.addressbookapp.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,15 @@ public class AddressBookService implements IAddressBookService {
 	@Autowired
 	private AddressBookRepository addressBookRepository;
 
-	List<AddressBookData> bookDataList = new ArrayList<>();
-
 	@Override
 	public List<AddressBookData> getAddressBookData() {
-		return bookDataList;
+		return addressBookRepository.findAll();
 	}
 
 	@Override
 	public AddressBookData getAddressBookDataById(int bookId) {
-		return bookDataList.stream()
-				.filter(bookData -> bookData.getAddressBookId() == bookId)
-				.findFirst()
+		return addressBookRepository
+				.findById(bookId)
 				.orElseThrow(() -> new AddressBookException("Addressbook entry Not found"));
 	}
 
@@ -39,7 +35,6 @@ public class AddressBookService implements IAddressBookService {
 	public AddressBookData addAddressBookData(AddressBookDTO addressBookDTO) {
 		AddressBookData bookData = null;
 		bookData = new AddressBookData(addressBookDTO);
-		bookDataList.add(bookData);
 		log.debug("Addressbook Data : "+bookData.toString());
 		return addressBookRepository.save(bookData);
 	}
@@ -47,15 +42,14 @@ public class AddressBookService implements IAddressBookService {
 	@Override
 	public AddressBookData updateAddressBookData(int bookId, AddressBookDTO addressBookDTO) {
 		AddressBookData bookData = this.getAddressBookDataById(bookId);
-		bookData.setName(addressBookDTO.name);
-		bookData.setPhoneNumber(addressBookDTO.phoneNumber);
-		bookDataList.set(bookId - 1, bookData);
-		return bookData;
+		bookData.updateAddressBookData(addressBookDTO);
+		return addressBookRepository.save(bookData);
 	}
 
 	@Override
 	public void deleteAddressBookData(int bookId) {
-		bookDataList.remove(bookId - 1);
+		AddressBookData bookData = this.getAddressBookDataById(bookId);
+		addressBookRepository.delete(bookData);
 	}
 
 }
