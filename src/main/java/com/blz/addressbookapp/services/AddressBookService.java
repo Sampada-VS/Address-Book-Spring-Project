@@ -32,6 +32,11 @@ public class AddressBookService implements IAddressBookService {
 	}
 
 	@Override
+	public List<AddressBookData> getAddressBookDataByCity(String city){
+		return addressBookRepository.getAddressBookDataByCity(city);
+	}
+	
+	@Override
 	public AddressBookData addAddressBookData(AddressBookDTO addressBookDTO) {
 		AddressBookData bookData = null;
 		bookData = new AddressBookData(addressBookDTO);
